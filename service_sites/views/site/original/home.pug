@@ -1,0 +1,177 @@
+extends layout
+
+block head
+  link(type='text/css', rel='stylesheet', href="/css/img-columns.css")
+
+
+block scripts
+  script(src="/js/site/original/projects.js")
+  
+block content
+  if coverImages.length === 0
+    .container.mb-3.mt-3.text-center
+      .row.text-center
+        p.m-auto You need to add Cover Image(s) to your new site.
+      a.btn.btn-info(href="/admin/site/cover_images") Add Cover Images
+  else
+    #mainCarousel.carousel.slide.pointer-event(data-ride='carousel')
+      ol.carousel-indicators
+        if coverImages.length > 1
+          each cover, index in coverImages
+            li(data-target='#mainCarousel', data-slide-to=index, class=index === coverImages.length - 1 ? "active": "")
+      .carousel-inner
+        each cover, index in coverImages
+          .carousel-item(class= index===0 ? 'active': '')
+            img.d-block.w-100(src='/uploads/' + cover.filename, style="width: 100%;")
+            
+      if coverImages.length > 1
+        a.carousel-control-prev(href='#mainCarousel', role='button', data-slide='prev')
+          span.carousel-control-prev-icon(aria-hidden='true')
+          span.sr-only Previous
+        a.carousel-control-next(href='#mainCarousel', role='button', data-slide='next')
+          span.carousel-control-next-icon(aria-hidden='true')
+          span.sr-only Next
+  //
+    Marketing messaging and featurettes
+    ==================================================
+  // Wrap the rest of the page in another container to center all the content.
+  .container-fuild.contact-bar.bg-warning.text-dark.p-2
+    .row-fuild
+      p.mb-0 Phone: 
+        a(href="tel:" + company.phone) #{company.phone} 
+        span &nbsp;- Email: 
+        a(href="mailto:" + company.email) #{company.email} 
+  .container.marketing
+    // Three columns of text below the carousel
+    .row
+      .col-sm-12
+        .text-center
+          h1 Services
+          hr(style="width:50%")
+          
+      if services.length === 0
+        .container.p-3.ml-1.text-center
+          .row.text-center
+            p.m-auto You need to add Services to your new site.
+          a.btn.btn-info(href="/admin/site/services") Add Services
+      else
+        each service in services
+          .col-lg-4
+            //svg.bd-placeholder-img.rounded-circle(width='140', height='140', xmlns='http://www.w3.org/2000/svg', preserveAspectRatio='xMidYMid slice', focusable='false', role='img', aria-label='Placeholder: 140x140')
+              title Placeholder
+              rect(width='100%', height='100%', fill='#777')
+              text(x='50%', y='50%', fill='#777', dy='.3em') 140x140
+            h2 #{service.name}
+            p
+              | #{service.message}
+            p
+              a.btn.btn-primary(href='/services', role='button') View All Services »
+          
+    // START THE FEATURETTES
+    //hr.featurette-divider
+    .row.mt-3
+      .col-sm-12.text-center
+        h1 Projects
+        hr(style="width: 50%;")
+        
+    if projects.length === 0
+      .container.p-3.ml-1.text-center
+        .row.text-center
+          p.m-auto You need to add Projects to your new site.
+        a.btn.btn-info(href="/admin/site/projects") Add Projects
+    else
+      each project, index in projects
+        .row.featurette
+          .col-md-7(class=index % 2 === 0 ? 'order-md-2' : '')
+            h2.featurette-heading.mt-0
+              | #{project.name}
+              // span.text-muted It’ll blow your mind. 
+            p.lead
+              | #{project.description}
+            a.btn.btn-primary.mt-1(href="/projects/" + project._id) View Project
+          .col-md-5.project-loader(class=index % 2 === 0 ? 'order-md-1' : '')
+            input.id(type="hidden", value=project._id)
+            svg.bd-placeholder-img.bd-placeholder-img-lg.featurette-image.img-fluid.mx-auto(width='500', height='500', xmlns='http://www.w3.org/2000/svg', preserveAspectRatio='xMidYMid slice', focusable='false', role='img', aria-label='Placeholder: 500x500')
+              title Placeholder
+              rect(width='100%', height='100%', fill='#eee')
+              text(x='50%', y='50%', fill='#aaa', dy='.3em') Loading...
+        hr.featurette-divider
+      //.row.featurette
+        .col-md-7
+          h2.featurette-heading
+            | And lastly, this one. 
+            span.text-muted Checkmate.
+          p.lead
+            | Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.
+        .col-md-5
+          svg.bd-placeholder-img.bd-placeholder-img-lg.featurette-image.img-fluid.mx-auto(width='500', height='500', xmlns='http://www.w3.org/2000/svg', preserveAspectRatio='xMidYMid slice', focusable='false', role='img', aria-label='Placeholder: 500x500')
+            title Placeholder
+            rect(width='100%', height='100%', fill='#eee')
+            text(x='50%', y='50%', fill='#aaa', dy='.3em') 500x500
+      //hr.featurette-divider
+      // /END THE FEATURETTES
+      // /.container
+      // FOOTER
+    .row-fuild.mb-3
+      .col-sm-12.text-center
+        h1 Gallery
+        hr(style="width: 50%;")
+      .mb-2
+      
+        if gallery.length === 0
+          .container.p-3.ml-1.text-center
+            .row.text-center
+              p.m-auto You need to add Gallery Images to your new site.
+            a.btn.btn-info(href="/admin/site/gallery") Add Gallery Images
+        else
+          center
+            each image in gallery
+              img(src="/uploads/" + image.filename, style="width: 250px; height: 250px; border: 1px solid black;    box-sizing: content-box;")
+            br
+            .mt-2.mb-5
+              a.btn.btn-primary(href="/gallery") View Gallery
+
+    .row.mb-3
+      .col-sm-12.text-center
+        h1 About
+        hr(style="width: 50%;")
+        
+        if company.about === ""
+          .container.p-3.ml-1.text-center
+            .row.text-center
+              p.m-auto You need to an about description for your company.
+            a.btn.btn-info(href="/admin/site/company") Update Company Info
+        else
+          p #{company.about}
+  .container-fuild
+    .row-fuild.mb-0(style="background-color: #d0d0d0")
+      .col-sm-12.text-center
+        h1 Testimonials
+        hr(style="width: 50%;")
+        
+        if testimonials.length === 0
+          .container.pt-3.pb-3.text-center
+            .row.text-center
+              p.m-auto You need to add Testimonials to your new site.
+            a.btn.btn-info(href="/admin/site/testimonials") Add Testimonials
+        else
+          #testimonialCarousel.carousel.slide.pointer-event(data-ride='carousel', style="min-height: 250px;")
+            // Carousel indicators
+            ol.carousel-indicators
+              if testimonials.length > 1
+                each testimonial, index in testimonials
+                  li(data-target='#testimonialCarousel', data-slide-to=index, class=index === testimonials.length - 1 ? "active": "")          
+            // Wrapper for carousel items
+            .carousel-inner
+              each testimonial, index in testimonials
+                .item.carousel-item(class= index===0 ? 'active': '')
+                  p.testimonial
+                    | #{testimonial.testimony}
+                  p.overview
+                    b #{testimonial.name}
+            // Carousel controls
+            if (testimonials.length > 1)
+              a.carousel-control.left.carousel-control-prev(href='#testimonialCarousel', data-slide='prev')
+                i.fa.fa-angle-left
+              a.carousel-control.right.carousel-control-next(href='#testimonialCarousel', data-slide='next')
+                i.fa.fa-angle-right

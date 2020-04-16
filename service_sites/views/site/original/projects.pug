@@ -1,0 +1,37 @@
+extends layout
+
+block head
+  link(type='text/css', rel='stylesheet', href="/css/img-columns.css")
+
+block scripts
+  script(src="/js/site/original/projects.js")
+
+block content
+  .container.mt-3.mb-5(style="min-height: 350px;")
+    .col-sm-12.text-center
+      h3 Projects
+      hr(style="width: 50%;")
+      
+    if projects.length === 0
+      .container.p-3.ml-1.text-center
+        .row.text-center
+          p.m-auto You need to add Projects to your new site.
+        a.btn.btn-info(href="/admin/site/projects") Add Projects
+    else
+      each project, index in projects
+        .row.featurette
+          .col-md-7(class=index%2===0 ? "order-md-2": '')
+            h2.featurette-heading.mt-0
+              | #{project.name}
+              // span.text-muted It’ll blow your mind. 
+            p.lead
+              | #{project.description}
+            a.btn.btn-primary.mt-1.left(href="/projects/" + project._id) View Project
+          .col-md-5.project-loader(class=index%2===0 ? "order-md-1": '')
+            input.id(type="hidden", value=project._id)
+            svg.bd-placeholder-img.bd-placeholder-img-lg.featurette-image.img-fluid.mx-auto(width='500', height='500', xmlns='http://www.w3.org/2000/svg', preserveAspectRatio='xMidYMid slice', focusable='false', role='img', aria-label='Placeholder: 500x500')
+              title Placeholder
+              rect(width='100%', height='100%', fill='#eee')
+              text(x='50%', y='50%', fill='#aaa', dy='.3em') Loading...
+        
+        hr.featurette-divider

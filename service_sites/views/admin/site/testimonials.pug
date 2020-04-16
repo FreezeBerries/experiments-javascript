@@ -1,0 +1,52 @@
+extends ../layout
+
+block scripts
+  script(src="/js/admin/site/testimonials.js")
+
+block content
+  .row
+    form.col.s12
+      h3 
+        a.waves-effect.waves-light.btn-large.indigo.darken-4.right(href="javascript:void(0)", onclick="app.saveTestimonials()") Save
+        | Testimonials
+      br
+      a.waves-effect.waves-light.btn.green(href="javascript:void(0)", onclick="app.addTestimony()") New
+      | &nbsp; (
+      span#listLength
+      | &nbsp;/ 10 Limit)
+      br
+      br
+      div#loader
+        | Loading
+      div#nothingHereMessage(style="display:none;")
+        br
+        br
+        br
+        h5(style="text-align: center") Nothing Here. Try pressing new.
+      div#list(style="display:none;")
+      div#template.hide
+        .card.root-testimony-card
+          .card-content
+            a.waves-effect.waves-light.right.btn.red(href="javascript:void(0)", onclick="app.deleteTestimony(this)") Delete
+            br
+            input.id(type="hidden")
+            .input-field
+              input.name(placeholder="John Doe", type='text', maxlength="25")
+              label Name
+            .input-field
+              textarea.testimony.materialize-textarea(maxlength="500", placeholder="Using them has been...")
+              label Testimony
+              // Modal Trigger
+      //a.waves-effect.waves-light.btn.modal-trigger(href='#modal1') Modal
+      // Modal Structure
+      #delete-testimony-modal.modal
+        .modal-content.red.white-text
+          h4 Delete Testimony
+        .modal-content
+          h5 Name
+          p#delete_name(style="word-break: break-all")
+          h5 Testimony
+          p#delete_testimony(style="word-break: break-all")
+        .modal-footer
+          a.modal-close.waves-effect.waves-green.btn-flat.left(href='javascript:void(0)') Cancel          
+          a.waves-effect.btn.red(href='javascript:void(0)', onclick="app.confirmDeleteModal()") Delete

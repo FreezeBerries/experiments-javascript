@@ -1,0 +1,28 @@
+extends layout
+
+block head
+  link(type='text/css', rel='stylesheet', href="/css/img-columns.css")
+  link(href='lib/css/lightbox.css', rel='stylesheet')
+
+block scripts
+  script(src='lib/js/lightbox-plus-jquery.js')
+
+
+block content  
+
+  .container.mt-3.mb-5(style="min-height: 350px;")
+    .col-sm-12.text-center
+      h1 Gallery
+      hr(style="width: 50%;")
+      if gallery.length === 0
+        .container.p-3.ml-1.text-center
+          .row.text-center
+            p.m-auto You need to add Gallery Images to your new site.
+          a.btn.btn-info(href="/admin/site/gallery") Add Gallery Images
+      else
+        .photos
+          each img in gallery
+            //.col.l3.m4.s6
+            a(href='/uploads/' + img.filename, data-lightbox='Gallerys', data-title='Gallery')
+              img(src='/uploads/' + img.filename)
+              //div(style="background:url(/uploads/" + img.filename + ") 100% no-repeat #f1f9f9; border: 1px solid black; display:inline-block; width: 250px; height: 250px;")

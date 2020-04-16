@@ -1,0 +1,28 @@
+extends layout
+
+block scripts
+  script(src="/js/site/original/projects.js")
+
+block content
+  .container.mt-3.mb-5(style="min-height: 350px;")
+    //.col-sm-12.text-center
+      h3 #{project.name} 
+      hr(style="width: 50%;")
+    .col-sm-12
+      a.btn.btn-primary.mb-2(href="/projects") BACK to Projects
+      p
+        strong Name:&nbsp;
+        | #{project.name}
+      p 
+        strong Description:&nbsp; 
+        | #{project.description}
+      
+    .project-card(class=index % 2 !== 0 ? 'grey lighten-2' : '') 
+      input.id(type="hidden", value=project._id)
+      div
+        .before_images_header.col.s12.mt-2.mb-2(style="display: none")
+          h4 Before Images
+        .before_images.photos.col.s12
+        .after_images_header.col.s12.mt-4.mb-2(style="display: none")
+          h4 After Images
+        .after_images.photos.col.s12

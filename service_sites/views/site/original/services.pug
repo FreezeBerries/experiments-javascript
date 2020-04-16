@@ -1,0 +1,32 @@
+extends layout
+
+block scripts
+  script.
+    $(document).ready(function(){
+      $('.collapsible').collapsible();
+    });
+
+block content
+
+  .container.mt-3.mb-5(style="min-height: 350px;")
+    .col-sm-12.text-center
+      h1 Services
+      hr(style="width: 50%;")
+        
+    if services.length === 0
+      .container.p-3.ml-1.text-center
+        .row.text-center
+          p.m-auto You need to add Services to your new site.
+        a.btn.btn-info(href="/admin/site/services") Add Services
+    else
+      #accordion
+        each service, index in services
+          .card
+            .card-header(id="heading" + index)
+              h5.mb-0
+                button.btn.btn-link(data-toggle='collapse', data-target='#collapse' + index, aria-expanded='true', aria-controls='collapseOne')
+                  | #{service.name}
+            .collapse.hide(aria-labelledby='headingOne', data-parent='#accordion', id="collapse" + index)
+              .card-body
+                | #{service.message}
+        

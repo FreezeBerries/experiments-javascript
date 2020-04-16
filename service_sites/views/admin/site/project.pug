@@ -1,0 +1,150 @@
+extends ../layout
+
+block scripts
+  script(src="/js/admin/site/project.js")
+  script.
+    var app = app || {};
+    app.data = !{JSON.stringify(project)};
+
+block content
+  .row
+    .col.s12
+      h3 
+        | Project
+      br
+      .card
+        .card-content
+          a.waves-effect.waves-light.btn.right(href="javascript:void(0)", onclick="app.openEdit()") Edit
+          h5 Name
+          p#name #{project.name}
+          h5 About
+          p#description #{project.description}
+          
+      .card
+        .card-content(style="display: table")
+          h5 Before Pictures
+          a.waves-effect.waves-light.btn.green.modal-trigger.new-btn-before(href="#new-before-modal") New
+          | &nbsp; (
+          span#listLengthBefore
+          | &nbsp;/ 10 Limit)
+          div#nothingHereMessageBefore
+            br
+            h5(style="text-align: center") Nothing Here. Try pressing new.
+            br
+          div#beforeList
+          div#beforeTemplate.hide
+            .card.root-before-card.col.s4
+              .card-content
+                a.waves-effect.waves-light.right.btn.red(href="javascript:void(0)", onclick="app.deleteBeforeImage(this)") Delete
+                br
+                input.id(type="hidden")
+              .card-image
+                img(src="example.img")
+          
+      .card
+        .card-content(style="display: table")
+          h5 After Pictures
+          a.waves-effect.waves-light.btn.green.modal-trigger.new-btn-after(href="#new-after-modal") New
+          | &nbsp; (
+          span#listLengthAfter
+          | &nbsp;/ 10 Limit)
+          div#nothingHereMessageAfter
+            br
+            h5(style="text-align: center") Nothing Here. Try pressing new.
+            br
+          div#afterList
+          div#afterTemplate.hide
+            .card.root-after-card.col.s4
+              .card-content
+                a.waves-effect.waves-light.right.btn.red(href="javascript:void(0)", onclick="app.deleteAfterImage(this)") Delete
+                br
+                input.id(type="hidden")
+              .card-image
+                img(src="example.img")
+          
+      .card
+        .card-content.red.white-text
+          h4 Delete Project
+        .card-content
+          p 
+            | Warning: This can not be undone. Please enter the name of the project into the input.
+            strong #{ project.name }
+          .input-field
+            input#delete_project_name(type='text', placeholder="Project Name", onkeyup="app.keyDownDelete(this)")
+          br
+          #delete_project.btn.red.disabled(onclick="app.deleteProject()") Delete
+          
+      #edit-project.modal
+        .modal-content.primary
+          h4 New Project
+        .modal-content
+          .form-group
+            .input-field
+              input#edit_name(placeholder="John Doe", type='text', maxlength="25")
+              label Project Name
+            .input-field
+              textarea#edit_description.materialize-textarea(maxlength="1000", placeholder="Using them has been...", style="height: 100px;")
+              label Project Description
+        .modal-footer
+          a.modal-close.waves-effect.waves-green.btn-flat.left(href='javascript:void(0)') Cancel          
+          a.waves-effect.btn.btn-primary(href="javascript:void(0)", onclick="app.saveEdit()") Create
+      
+      #new-after-modal.modal
+        form(role='form', enctype='multipart/form-data', method='POST', action="/admin/site/project/after_image")
+          .modal-content.primary
+            h4 New After Image
+          .modal-content
+            .form-group
+              label.col-form-label.font-weight-bold File Input
+              .col-md-6
+                input(type='file', name='myFile')
+                input.id(type="hidden", name="id", value=project._id)
+          .modal-footer
+            a.modal-close.waves-effect.waves-green.btn-flat.left(href='javascript:void(0)') Cancel          
+            button.waves-effect.btn.btn-primary(type='submit') Upload
+            
+      #new-before-modal.modal
+        form(role='form', enctype='multipart/form-data', method='POST', action="/admin/site/project/before_image")
+          .modal-content.primary
+            h4 New Before Image
+          .modal-content
+            .form-group
+              label.col-form-label.font-weight-bold File Input
+              .col-md-6
+                input(type='file', name='myFile')
+                input.id(type="hidden", name="id", value=project._id)
+          .modal-footer
+            a.modal-close.waves-effect.waves-green.btn-flat.left(href='javascript:void(0)') Cancel
+            button.waves-effect.btn.btn-primary(type='submit') Upload
+
+            
+      #delete-after-modal.modal
+        .modal-content.red.white-text
+          h4 Delete Image
+        .modal-content
+          img#delete_image_after
+        .modal-footer
+          a.modal-close.waves-effect.waves-green.btn-flat.left(href='javascript:void(0)') Cancel          
+          a.waves-effect.btn.red(href='#!', onclick="app.confirmDeleteModalAfter()") Delete
+          
+      #delete-before-modal.modal
+        .modal-content.red.white-text
+          h4 Delete Image
+        .modal-content
+          img#delete_image_before
+        .modal-footer
+          a.modal-close.waves-effect.waves-green.btn-flat.left(href='javascript:void(0)') Cancel          
+          a.waves-effect.btn.red(href='#!', onclick="app.confirmDeleteModalBefore()") Delete
+
+
+      #delete-gallery-modal.modal
+        .modal-content.red.white-text
+          h4 Delete Gallery
+        .modal-content
+          h5 Name
+          p#delete_name(style="word-break: break-all")
+          h5 Gallery
+          p#delete_gallery(style="word-break: break-all")
+        .modal-footer
+          a.modal-close.waves-effect.waves-green.btn-flat.left(href='javascript:void(0)') Cancel          
+          a.waves-effect.btn.red(href='#!', onclick="app.confirmDeleteModal()") Delete

@@ -1,0 +1,40 @@
+extends ../layout
+
+block scripts
+  script(type='text/javascript', src='/lib/jsgrid.min.js')
+  script(src="/js/admin/site/projects.js")
+  script.
+    var app = app || {};
+    app.data = !{JSON.stringify(projects)}
+
+block head
+  link(type='text/css', rel='stylesheet', href='/lib/jsgrid.min.css')
+  link(type='text/css', rel='stylesheet', href='/lib/jsgrid-theme.min.css')
+
+block content
+  .row
+    .col.s12
+      h3 Projects
+      br
+      a.waves-effect.waves-light.btn.modal-trigger(href='javascript:void(0)', onclick="app.openCreateModal();") New
+      //a.waves-effect.waves-light.btn.modal-trigger(href="#new_project_modal") New
+      | &nbsp; (
+      span#listLength
+      | &nbsp;/ 10 Limit)
+      br
+      br
+      #jsGrid
+  #new-project.modal
+    .modal-content.primary
+      h4 New Project
+    .modal-content
+      .form-group
+        .input-field
+          input#name(placeholder="John Doe", type='text', maxlength="25")
+          label Project Name
+        .input-field
+          textarea#description.materialize-textarea(maxlength="1000", placeholder="Using them has been...", style="height: 100px;")
+          label Project Description
+    .modal-footer
+      a.modal-close.waves-effect.waves-green.btn-flat.left(href='javascript:void(0)') Cancel          
+      a.waves-effect.btn.btn-primary(href="javascript:void(0)", onclick="app.createProject()") Create

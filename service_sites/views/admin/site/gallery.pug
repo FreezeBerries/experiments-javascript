@@ -1,0 +1,57 @@
+extends ../layout
+
+block scripts
+  script(src="/js/admin/site/gallery.js")
+
+block content
+  .row
+    form.col.s12
+      h3 
+        | Gallerys
+      br
+      a.waves-effect.waves-light.btn.green.modal-trigger.new-btn(href="#new-gallery-modal") New
+      | &nbsp; (
+      span#listLength
+      | &nbsp;/ 50 Limit)
+      br
+      br
+      div#nothingHereMessage
+        br
+        br
+        br
+        h5(style="text-align: center") Nothing Here. Try pressing new.
+      div#list
+      div#template.hide
+        .card.root-gallery-card.col.s4
+          .card-content
+            a.waves-effect.waves-light.right.btn.red(href="javascript:void(0)", onclick="app.deleteGallery(this)") Delete
+            br
+            input.id(type="hidden")
+            
+          .card-image
+            img(src="example.img")
+            // Modal Trigger
+      //a.waves-effect.waves-light.btn.modal-trigger(href='#modal1') Modal
+      // Modal Structure
+      
+    #new-gallery-modal.modal
+      form(role='form', enctype='multipart/form-data', method='POST')
+        .modal-content.primary
+          h4 New Gallery Image
+        .modal-content
+          .form-group
+            label.col-form-label.font-weight-bold File Input
+            .col-md-6
+              input(type='file', name='myFile')
+        .modal-footer
+          a.modal-close.waves-effect.waves-green.btn-flat.left(href='javascript:void(0)') Cancel          
+          button.waves-effect.btn.btn-primary(type='submit') Upload
+
+    #delete-gallery-modal.modal
+      .modal-content.red.white-text
+        h4 Delete Image
+      .modal-content
+        img#delete_image
+      .modal-footer
+        a.modal-close.waves-effect.waves-green.btn-flat.left(href='javascript:void(0)') Cancel          
+        a.waves-effect.btn.red(href='#!', onclick="app.confirmDeleteModal()") Delete

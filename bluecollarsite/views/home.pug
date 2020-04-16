@@ -1,0 +1,167 @@
+extends layout
+
+block content
+  .wrapper
+    .parallax.filter-gradient.blue(data-color='blue')
+      .parallax-background
+        //img.parallax-background-image(src='assets/img/template/bg3.jpg')
+        img.parallax-background-image(src='assets/img/template/bg-blue-collar-worker.jpg')
+      .container
+        .row
+          .col-md-5.hidden-xs
+            .parallax-image
+              img.phone(src='assets/img/template/iphone3.png', style='margin-top: 20px')
+          .col-md-6.col-md-offset-1
+            .description
+              h2 Blue Collar Site
+              br
+              h5
+                | Everyone today is online! Your first impression is people looking you up online. We provide you with tools to maintain your best impressionation. Working on your site is as easy as updating your social media account thanks to our proprietary software.
+            //.buttons
+              button.btn.btn-fill.btn-neutral
+                i.fa.fa-apple
+                |  Appstore
+              button.btn.btn-simple.btn-neutral
+                i.fa.fa-android
+              button.btn.btn-simple.btn-neutral
+                i.fa.fa-windows
+    .section.section-gray.section-clients
+      .container.text-center
+        h4.header-text Easier than social media
+        p
+          | You are in complete control of your site. You can update your content whenever you need to. If a new project comes up, you can add it without needing to email someone. We build your software, you update the text and images for your site. 
+          br
+        div
+          iframe(width='560', height='315', src='https://www.youtube.com/embed/Wv8reFryf9c', frameborder='0', allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture', allowfullscreen='')
+
+    .section.section-presentation
+      .container
+        .row
+          .col-md-6
+            .description
+              h4.header-text It's beautiful
+              p
+                | Most blue collar workers that don't have a website, don't have a good first impression in the modern technology driven era. Even with word of mouth, your new customer will look at your website to confirm their interest. You don't need to learn code, we do the code for you. Your site will look good on desktops, tablets, and phones. Your site is constantly being updated with new features, some of these features are from user inputs. Other updates are to keep you ahead of your competition.
+              p
+                | You will have a clean beautiful website that is constantly being updated with your input. You will have a website that shows your work and a web team that will never let you look bad online.
+              p
+          .col-md-5.col-md-offset-1.hidden-xs
+            img(src='assets/img/template/mac-bcs.png')
+    .section.section-demo
+      .container
+        .row
+          .col-md-6
+            #description-carousel.carousel.fade(data-ride='carousel')
+              .carousel-inner
+                .item
+                    img(src='assets/img/template/examples/example_1.jpg', alt='')
+                .item
+                  img(src='assets/img/template/examples/example_2.jpg', alt='')
+                .item.active
+                  img(src='assets/img/template/examples/example_3.jpg', alt='')
+                .item
+                  img(src='assets/img/template/examples/example_4.jpg', alt='')
+              ol.carousel-indicators.carousel-indicators-blue
+                li(data-target='#description-carousel', data-slide-to='0')
+                li.active(data-target='#description-carousel', data-slide-to='1')
+                li(data-target='#description-carousel', data-slide-to='2')
+                li(data-target='#description-carousel', data-slide-to='3')
+          .col-md-5.col-md-offset-1
+            h4.header-text User Friendly
+            p
+              | These are images of the admin portal you will use to update your site. It's simple! With only a few buttons, you will easily figure out how to improve your site whenever inspiration hits. Your website will become fun extention of your company because you can show off your creativeness with relative easy.
+            //a#Demo3.btn.btn-fill.btn-info(href='http://www.creative-tim.com/product/awesome-landing-page', data-button='info') Get Free Demo
+    .section.section-features
+      .container
+        h4.header-text.text-center Features
+        .row
+          .col-md-4
+            .card.card-blue
+              .icon
+                i.pe-7s-note2
+              .text
+                h4 Free site Upgrades
+                p
+                  | We are constantly innovating your site. We listen to our customers and study their competition. We invest into you as you invest into us. This is not wordpress or wix. You have a web team.
+          .col-md-4
+            .card.card-blue
+              .icon
+                i.pe-7s-bell
+              h4 Online presents
+              p
+                | You will recieve SEO (search engine optimization). We will make sure your discoverable with many more site past the search engine. Being found means more customers.
+          .col-md-4
+            .card.card-blue
+              .icon
+                i.pe-7s-graph1
+              h4 First 20 customers get all products
+              p
+                | We have big plans to create more software to make managing your business easier. The first 20 customers will have access to all future products. What are we planning? We will tell you soon.
+    //.section.section-testimonial
+      .container
+        h4.header-text.text-center What people think
+        #carousel-example-generic.carousel.fade(data-ride='carousel')
+          // Wrapper for slides
+          .carousel-inner(role='listbox')
+            .item
+              .mask
+                img(src='assets/img/faces/face-4.jpg')
+              .carousel-testimonial-caption
+                p Jay Z, Producer
+                h3 "I absolutely love your app! It's truly amazing and looks awesome!"
+            .item.active
+              .mask
+                img(src='assets/img/faces/face-3.jpg')
+              .carousel-testimonial-caption
+                p Drake, Artist
+                h3
+                  | "This is one of the most awesome apps I've ever seen! Wish you luck Creative Tim!"
+            .item
+              .mask
+                img(src='assets/img/faces/face-2.jpg')
+              .carousel-testimonial-caption
+                p Rick Ross, Musician
+                h3
+                  | "Loving this! Just picked it up the other day. Thank you for the work you put into this."
+          ol.carousel-indicators.carousel-indicators-blue
+            li.active(data-target='#carousel-example-generic', data-slide-to='0')
+            li(data-target='#carousel-example-generic', data-slide-to='1')
+            li(data-target='#carousel-example-generic', data-slide-to='2')
+    .section.section-no-padding
+      .parallax.filter-gradient.blue(data-color='blue')
+        .parallax-background
+          //img.parallax-background-image(src='assets/img/template/bg3.jpg')
+          img.parallax-background-image(src='assets/img/template/bg-blue-collar-worker.jpg')
+        .info
+          h1 Show the world your skills!
+          p Show your neighbors your love for your craft.
+          p Call to get started: (832) 535-7657
+          p Or Email: 
+            a(href="mailto:michaelhunt.is@gmail.com") michaelhunt.is@gmail.com
+          //a.btn.btn-neutral.btn-lg.btn-fill(href='http://www.creative-tim.com/product/awesome-landing-page') Call Us Now
+    footer.footer
+      .container
+        //nav.pull-left
+          ul
+            li
+              a(href='#')
+                | Home
+            li
+              a(href='#')
+                | Company
+            li
+              a(href='#')
+                | Portfolio
+            li
+              a(href='#')
+                | Blog
+        //.social-area.pull-right
+          a.btn.btn-social.btn-facebook.btn-simple
+            i.fa.fa-facebook-square
+          a.btn.btn-social.btn-twitter.btn-simple
+            i.fa.fa-twitter
+          a.btn.btn-social.btn-pinterest.btn-simple
+            i.fa.fa-pinterest
+        .copyright
+          | © 2016 bluecollarsite.com
+          | , made with love

@@ -1,0 +1,67 @@
+extends ../layout
+
+block scripts
+  script(src="/js/admin/app/company.js")
+  
+block content
+  .row
+    form.col.s12
+      h3 
+        a.waves-effect.waves-light.btn-large.indigo.darken-4.right(href="javascript:void(0)", onclick="app.saveCompanyInfo()") Save
+        | Company Info
+      br
+      .row
+        .input-field.col.s12
+          input#company_name(placeholder="Joe's Construction", type='text', value=companyInfo.name)
+          label(for='company_name') Company Name
+      .row
+        .input-field.col.s12
+          input#company_email(placeholder="joe@joesconstruction.com", type='text', value=companyInfo.email)
+          label(for='company_email') Email
+      .row
+        .input-field.col.s12
+          input#company_phone(placeholder="(555) 555-5555", type='text', value=companyInfo.phone)
+          label(for='company_phone') Phone
+      .row
+        .input-field.col.s12
+          input#company_open_year(placeholder="1969", type='Number', value=companyInfo.open_since_year)
+          label(for='company_open_year') Open Year
+      .row
+        .input-field.col.s12
+          textarea#company_about.materialize-textarea(placeholder="Your friendly neighborhood...")
+            | #{companyInfo.about}
+          label(for='company_about') About
+
+      .row
+        .input-field.col.s12
+          input#company_facebook_link(placeholder="", type='text', value=companyInfo.facebook_link)
+          label(for='company_facebook_link') Facebook Link
+      .row
+        .input-field.col.s12
+          input#company_yelp_link(placeholder="", type='text', value=companyInfo.yelp_link)
+          label(for='company_yelp_link') Yelp Link
+      .row
+        .input-field.col.s12
+          input#company_angies_list_link(placeholder="", type='text', value=companyInfo.angies_list_link)
+          label(for='company_angies_list_link') Angie List Link
+      .row
+        .input-field.col.s12
+          input#company_youtube_link(placeholder="", type='text', value=companyInfo.youtube_link)
+          label(for='company_youtube_link') Youtube Link
+      .row
+        .input-field.col.s12
+          input#company_twitter_link(placeholder="", type='text', value=companyInfo.twitter_link)
+          label(for='company_twitter_link') Twitter Link
+      .card
+        .card-content(style="display: inline-table")
+          p This is the code you give to someone to sign up. You should change this after a new people has joined your team.
+          br
+          .form-group
+            .input-field
+              input#signupcode(placeholder="", type='text', value=companyInfo.signupcode)
+              label(for='signupcode') Sign Up Code
+      .row
+        .col.s12
+          a.waves-effect.waves-light.btn-large.indigo.darken-4.right(href="javascript:void(0)", onclick="app.saveCompanyInfo()") Save
+            
+          

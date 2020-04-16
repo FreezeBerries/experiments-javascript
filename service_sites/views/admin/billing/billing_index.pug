@@ -1,0 +1,148 @@
+extends ../layout
+
+block scripts
+  script.
+    $(document).ready(function(){
+      $('.modal').modal();
+      $("#customer_phone").inputmask("(999) 999-9999");
+      $("#customer_card").inputmask("9999-9999-9999-9999");
+      $('#customer_exp_year').inputmask("9999");
+      $('#customer_cvc').inputmask("999");
+      $('#customer_exp_month').inputmask("99");
+      $("#update_customer_phone").inputmask("(999) 999-9999");
+      $("#update_customer_card").inputmask("9999-9999-9999-9999");
+      $('#update_customer_exp_year').inputmask("9999");
+      $('#update_customer_cvc').inputmask("999");
+      $('#update_customer_exp_month').inputmask("99");
+    });
+
+block content
+  //.row
+    .col.s12
+      .card
+        .card-content
+          p Subscription
+          br
+          form(action='/admin/app/billing/plan', method="POST")
+            br
+            button.btn.btn-primary(type="submit") Update Plan
+  if demomode
+    .row
+      .col.s12
+        h3
+          | Demo Mode Activated
+        hr
+        p Payment portal cannot be viewed.
+  if !demomode    
+    .row
+      .col.s12
+        h3 
+          | Billing
+        br
+        .card
+          .card-content
+            if customer
+              .row
+                .col.s12
+                  a.waves-effect.waves-light.btn.modal-trigger(href="#update_plan", style="margin-right: 5px;") Update Plan
+                  a.waves-effect.waves-light.btn.modal-trigger(href="#update_customer", style="margin-right: 5px;") Update Customer Info
+                  a.waves-effect.waves-light.btn.modal-trigger(href="#update_card", style="margin-right: 5px;") Update Card
+                
+                
+                  #update_card.modal
+                    form(action="/admin/app/billing/updateCard", method="POST")
+                      .modal-content
+                        h5 Update Card
+                        br
+                        .input-field
+                          input#update_customer_card.validate(placeholder=customer ? 'XXXX-XXXX-XXXX-' + customer.card.last4 : 'XXXX-XXXX-XXXX-XXXX', type='text', name="customer_card", required)
+                          label(for='customer_card') Card
+                        .input-field
+                          input#update_customer_exp_month.validate(placeholder='MM', type='text', name="customer_exp_month", value= customer ? customer.card.exp_month : "", required)
+                          label(for='customer_exp_month') Expiration Month
+                        .input-field
+                          input#update_customer_exp_year.validate(placeholder='YY', type='text', name="customer_exp_year", value= customer ? customer.card.exp_year : "", required)
+                          label(for='customer_exp_year') Expiration Year
+                        .input-field
+                          input#update_customer_cvc.validate(placeholder='CVC', type='text', name="customer_cvc", maxlength="3", required)
+                          label(for='customer_cvc') CVC
+                      .modal-footer                  
+                        a.modal-close.waves-effect.waves-green.btn-flat.left(href='#!') Cancel
+                        button.waves-effect.waves-green.btn(href='#!') Update
+
+                      
+                  // Modal Structure
+                  #update_customer.modal
+                    form(action="/admin/app/billing/updateCustomer", method="POST")
+                      .modal-content
+                        h5 Update Customer
+                        br
+                        .input-field
+                          input#update_customer_name.validate(rplaceholder='John Doe', type='text', name="customer_name", value= customer ? customer.stripe.name : "", required)
+                          label(for='customer_name') Name
+                        .input-field
+                          input#update_customer_email.validate(placeholder='email@email.com', type='email', name="customer_email", value= customer ? customer.stripe.email : "", required)
+                          label(for='customer_email') Email
+                        .input-field
+                          input#update_customer_phone.validate(placeholder='(555) 555-5555', type='text', name="customer_phone", value= customer ? customer.stripe.phone : "", required)
+                          label(for='customer_phone') Phone
+                      .modal-footer
+                        a.modal-close.waves-effect.waves-green.btn-flat.left(href='#!') Cancel
+                        button.waves-effect.waves-green.btn(href='#!') Update
+
+                  // Modal Structure
+                  #update_plan.modal
+                    form(action="/admin/app/billing/updateplan", method="POST")
+                      input(type="hidden", name="action", value= customer.subscription ? "exitplan" : "startplan")
+                      .modal-content
+                        h4 Update Plan
+                        if customer.subscription
+                          p Warning: This will turn your website off. You will have to pay again to restart it. You will not lose any data, but restriction on the data will take place.
+                        else
+                          p This will turn your website on by charging you $400 now followed by a reoccuring 400.  Every month you have service/updates with us, plus we listen to your feedback and grow this tech to your requirements.
+                      .modal-footer
+                        a.modal-close.waves-effect.waves-green.btn-flat.left(href='#!') Cancel
+                        if customer.subscription
+                          button.waves-effect.waves-red.btn.red(type="submit") Turn Off Website
+                        else
+                          button.waves-effect.waves-green.btn(type="submit") Turn On Website
+                          
+
+            form(action="/admin/app/billing", method="POST")
+              .row
+                .col.s12
+                  p
+                    label
+                      input(name='plan', type='radio', value="none", checked=!customer || !customer.subscription ? true: false, disabled=customer)
+                      span No Website Active
+                  p
+                    label
+                      input(name='plan', type='radio', value="website", checked=customer && customer.subscription ? true: false, disabled=customer)
+                      span Activate Website ($400/month)
+                  
+              .row
+                .col.s12
+                  .input-field
+                    input#customer_name.validate(rplaceholder='John Doe', type='text', name="customer_name", value= customer ? customer.stripe.name : "", required, disabled=customer)
+                    label(for='customer_name') Name
+                  .input-field
+                    input#customer_email.validate(placeholder='email@email.com', type='email', name="customer_email", value= customer ? customer.stripe.email : "", required, disabled=customer)
+                    label(for='customer_email') Email
+                  .input-field
+                    input#customer_phone.validate(placeholder='(555) 555-5555', type='text', name="customer_phone", value= customer ? customer.stripe.phone : "", required, disabled=customer)
+                    label(for='customer_phone') Phone
+                  .input-field
+                    input#customer_card.validate(placeholder=customer ? 'XXXX-XXXX-XXXX-' + customer.card.last4 : 'XXXX-XXXX-XXXX-XXXX', type='text', name="customer_card", required, disabled=customer)
+                    label(for='customer_card') Card
+                  .input-field
+                    input#customer_exp_month.validate(placeholder='MM', type='text', name="customer_exp_month", value= customer ? customer.card.exp_month : "", required, disabled=customer)
+                    label(for='customer_exp_month') Expiration Month
+                  .input-field
+                    input#customer_exp_year.validate(placeholder='YY', type='text', name="customer_exp_year", value= customer ? customer.card.exp_year : "", required, disabled=customer)
+                    label(for='customer_exp_year') Expiration Year
+                  .input-field
+                    input#customer_cvc.validate(placeholder='CVC', type='text', name="customer_cvc", maxlength="3", required, disabled=customer)
+                    label(for='customer_cvc') CVC
+                  if !customer
+                    button.btn.btn-primary(type="submit") Update Billing Info
+                  

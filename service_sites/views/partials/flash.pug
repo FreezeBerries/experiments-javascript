@@ -1,0 +1,15 @@
+if messages.errors
+  .alert.alert-danger.fade.show.red.card
+    .card-content
+      for error in messages.errors
+        div= error.msg
+if messages.info
+  .alert.alert-info.fade.show.yellow.card
+    .card-content
+      for info in messages.info
+        div= info.msg
+if messages.success
+  .alert.alert-success.fade.show.green.card
+    .card-content
+      for success in messages.success
+        div= success.msg
