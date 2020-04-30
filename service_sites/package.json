@@ -43,7 +43,7 @@
     "googleapis": "^40.0.0",
     "inputmask": "^4.0.8",
     "instagram-node": "^0.5.8",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "jsgrid": "^1.5.3",
     "lastfm": "^0.9.3",
     "lie": "^3.3.0",
